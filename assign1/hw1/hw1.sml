@@ -43,8 +43,30 @@ fun dates_in_months(dates: DATE list, months: int list): DATE list =
 	  then []
     else dates_in_month(dates, hd months) @ dates_in_months(dates, tl months)
 
+(*6*)
+fun get_nth(slist: string list, n: int): string =
+    if(null slist)
+	  then raise invalidparameter
+    else if(n = 1)
+	  then hd slist
+    else get_nth(tl slist, (n-1))
 
 (*
+val test6 = get_nth(["hi", "there", "how", "are", "you"], 2) = "there"
 TESTING
+    type DATE = {day:int, month:int, year:int}
+    exception InvalidParameter
+    val is_older = fn : DATE * DATE -> bool
+    val number_in_month = fn : DATE list * int -> int
+    val number_in_months = fn : DATE list * int list -> int
+    val dates_in_month = fn : DATE list * int -> DATE list
+    val dates_in_months = fn : DATE list * int list -> DATE list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : DATE -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : DATE list -> DATE option
+val reasonable_date = fn : DATE -> bool
 
 *)

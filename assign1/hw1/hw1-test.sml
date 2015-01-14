@@ -33,12 +33,12 @@ val test4b = dates_in_month([feb28_2012,dec1_2013],3) = []
 
 val test5a = dates_in_months([feb28_2012,dec1_2013,march31_2011,april28_2011],[2,3,4]) = [feb28_2012,march31_2011,april28_2011]
 val test5d = dates_in_months([feb28_2012,dec1_2013,march31_2011,april28_2011],[5,7]) = []
-(*
+
 val test6 = get_nth(["hi", "there", "how", "are", "you"], 2) = "there"
 val test6a = get_nth(["hi", "there", "how", "are", "you"], 7) = "never" handle InvalidParameter => true
 val test6b = get_nth(["hi", "there", "how", "are", "you"], 0) = "never" handle InvalidParameter => true
 val test6c = get_nth([], 0) = "never" handle InvalidParameter => true
-
+(*
 val test7 = date_to_string(june1_2013) = "June 1, 2013"
 val test7a = date_to_string(april28_2011) = "April 28, 2011"
 
