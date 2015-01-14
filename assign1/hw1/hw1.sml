@@ -45,12 +45,14 @@ fun dates_in_months(dates: DATE list, months: int list): DATE list =
 
 (*6*)
 fun get_nth(slist: string list, n: int): string =
-    if(null slist)
+    if(null slist orelse n = 0)
 	  then raise invalidparameter
     else if(n = 1)
 	  then hd slist
     else get_nth(tl slist, (n-1))
 
+(*7*)
+fun date_to_string(
 (*
 val test6 = get_nth(["hi", "there", "how", "are", "you"], 2) = "there"
 TESTING
