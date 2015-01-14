@@ -39,6 +39,9 @@ fun dates_in_month(dates: DATE list, month: int): DATE list =
 
 (*5*)
 fun dates_in_months(dates: DATE list, months: int list): DATE list =
+    if(null months)
+	  then []
+    else dates_in_month(dates, hd months) @ dates_in_months(dates, tl months)
 
 
 (*
