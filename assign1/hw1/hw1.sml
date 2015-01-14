@@ -52,9 +52,18 @@ fun get_nth(slist: string list, n: int): string =
     else get_nth(tl slist, (n-1))
 
 (*7*)
-fun date_to_string(
+fun date_to_string(d1: DATE): string =
+    let
+	val l = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    in
+	get_nth(l, #month d1) ^" "^ Int.toString(#day d1) ^", "^ Int.toString(#year d1)
+    end
+
+(*8*)
+fun 
+
 (*
-val test6 = get_nth(["hi", "there", "how", "are", "you"], 2) = "there"
+val test7 = date_to_string(june1_2013) = "June 1, 2013"
 TESTING
     type DATE = {day:int, month:int, year:int}
     exception InvalidParameter
@@ -63,7 +72,8 @@ TESTING
     val number_in_months = fn : DATE list * int list -> int
     val dates_in_month = fn : DATE list * int -> DATE list
     val dates_in_months = fn : DATE list * int list -> DATE list
-val get_nth = fn : string list * int -> string
+  val get_nth = fn : string list * int -> string
+
 val date_to_string = fn : DATE -> string
 val number_before_reaching_sum = fn : int * int list -> int
 val what_month = fn : int -> int
