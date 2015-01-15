@@ -66,8 +66,6 @@ fun number_before_reaching_sum(sum: int, ilist: int list): int =
 
 (*9*)
 fun what_month(day: int): int =
-   (* let val day_sum = [0,31,59,90,120,151,181,212,243,273,304,334]*)
-    (*let val day_sum = [31,59,90,120,151,181,212,243,273,304,334,365]*)
     let val day_sum = [31,28,31,30,31,30,31,31,30,31,30,31]
     in
 	number_before_reaching_sum(day, day_sum) + 1
@@ -78,23 +76,9 @@ fun what_month(day: int): int =
 (*fun month_range(d1: int, d2, int): int list =*)
     
 
-
 (*
-val day_sum = [31,59,90,120,151,181,212,243,273,304,334,365]
+val test10 = month_range(31, 34) = [1,2,2,2]
 
-	fun day_count(ilist: int list): int =
-	    if(null ilist)
-		  then raise InvalidParameter
-	    else if(day <= (hd ilist))
-		  then 1
-	    else 1 + day_count(tl day_sum)
-    in
-	day_count(day_sum)
-    end
-*)  
-
-(*
-val test7 = date_to_string(june1_2013) = "June 1, 2013"
 TESTING
     type DATE = {day:int, month:int, year:int}
     exception InvalidParameter
