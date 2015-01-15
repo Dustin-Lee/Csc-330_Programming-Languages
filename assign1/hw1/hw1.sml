@@ -84,10 +84,15 @@ fun month_range(d1: int, d2: int): int list =
 	in
 	    m_recur(d1, d2)
 	end
-    
 
-(*
-val test10 = month_range(31, 34) = [1,2,2,2]
+(*11*)
+fun oldest(
+
+
+
+(*12*)
+
+(*val test10 = month_range(31, 34) = [1,2,2,2]
 
 TESTING
     type DATE = {day:int, month:int, year:int}
