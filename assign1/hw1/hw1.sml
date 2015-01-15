@@ -106,28 +106,7 @@ fun oldest(dlist: DATE list)(*: DATE option *)=
 
 
 (*12*)
-(*  val test11a = oldest([april28_2011]) = SOME april28_2011
-    val test11b = oldest([]) = NONE
-    val test11 = oldest([feb28_2012,march31_2011,april28_2011]) = SOME feb28_2012
-fun better_max2 (xs : int list) =
- if null xs
- then NONE
- else let (* ok to assume xs nonempty b/c local *)
-        fun max_nonempty (xs : int list) =
-          if null (tl xs)
-          then hd xs
-          else
-            let val tl_ans = max_nonempty(tl xs)
-            in
-              if hd xs > tl_ans
-              then hd xs
-              else tl_ans
-            end
-      in
-          SOME (max_nonempty xs)
-      end
-
-###
+(*
 
 TESTING
     type DATE = {day:int, month:int, year:int}
