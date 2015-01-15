@@ -73,7 +73,17 @@ fun what_month(day: int): int =
 
 
 (*10*)
-(*fun month_range(d1: int, d2, int): int list =*)
+fun month_range(d1: int, d2: int): int list =
+    if(d1>d2)
+    then []
+    else
+	let fun m_recur(start: int, fin: int): int list =
+	    if(start > fin)
+		  then []
+	    else what_month(start)::m_recur((start+1), fin)
+	in
+	    m_recur(d1, d2)
+	end
     
 
 (*
@@ -90,9 +100,9 @@ TESTING
     val get_nth = fn : string list * int -> string
     val date_to_string = fn : DATE -> string
     val number_before_reaching_sum = fn : int * int list -> int
+    val what_month = fn : int -> int
+    val month_range = fn : int * int -> int list
 
-val what_month = fn : int -> int
-val month_range = fn : int * int -> int list
 val oldest = fn : DATE list -> DATE option
 val reasonable_date = fn : DATE -> bool
 

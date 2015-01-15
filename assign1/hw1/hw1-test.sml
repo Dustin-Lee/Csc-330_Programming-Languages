@@ -52,12 +52,14 @@ val test9  = what_month(70) = 3
 val test9a = what_month(31) = 1
 val test9b = what_month(32) = 2
 val test9c = what_month(360) = 12
-(*
+
 val test10 = month_range(31, 34) = [1,2,2,2]
 val test10a = month_range(360, 365) = [12,12,12,12,12,12];
 val test10b = month_range(31,31 + 28 +1) = [1,
                                            2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
                                            3]
+
+(*
 val test10c = month_range(35, 34) = []
 val test10d = month_range(35, 35) = [2]
 val test10e = month_range(31+29, 31+29) = [3]
