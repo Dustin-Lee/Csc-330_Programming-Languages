@@ -65,11 +65,11 @@ val test10e = month_range(31+29, 31+29) = [3]
 val test11 = oldest([feb28_2012,march31_2011,april28_2011]) = SOME feb28_2012
 val test11a = oldest([april28_2011]) = SOME april28_2011
 val test11b = oldest([]) = NONE
-(*
+
 val test12 = reasonable_date({year = 2014, month = 12, day = 31});
 val test12a = not (reasonable_date {year = 2015, month = 2, day = 29});
 
 val test12b = reasonable_date({year = 2012, month = 2, day = 29});
 val test12c = not (reasonable_date{year = 2014, month = 0, day = 31});
 val test12d = not (reasonable_date{year = 2014, month = 13, day = 31});
-*)
+(**)

@@ -71,7 +71,6 @@ fun what_month(day: int): int =
 	number_before_reaching_sum(day, day_sum) + 1
     end
 
-
 (*10*)
 fun month_range(d1: int, d2: int): int list =
     if(d1>d2)
@@ -102,27 +101,29 @@ fun oldest(dlist: DATE list)(*: DATE option *)=
     in
 	SOME (old_date dlist)
     end
-	  
-
 
 (*12*)
-(*
+fun reasonable_date(d: DATE): bool =
+    if(#month d > 12 orelse #month d < 1 orelse #year d < 1)
+	  then false
+    else
+	let fun leap(d_lp: DATE): bool =
+	    if((#year d_lp mod 4) <> 0)
+	        then false
+	    else if(#year d_lp mod 100) <> 0 (*Is divisible by 4, enters if not divisible by 100*)
+		then true
+	    else if(#year d_lp mod 400) <> 0
+	        then false
+	    else true
+	in
+	    let fun m_days(d2: DATE): string list =
+		if(leap(d))
+		    then ["31","29","31","30","31","30","31","31","30","31","30","31"]
+	        else ["31","28","31","30","31","30","31","31","30","31","30","31"]
+	    in
+		if(#day d <= valOf(Int.fromString(get_nth(m_days(d), #month d))))
+		    then true
+		else false
+	    end
+	end
 
-TESTING
-    type DATE = {day:int, month:int, year:int}
-    exception InvalidParameter
-    val is_older = fn : DATE * DATE -> bool
-    val number_in_month = fn : DATE list * int -> int
-    val number_in_months = fn : DATE list * int list -> int
-    val dates_in_month = fn : DATE list * int -> DATE list
-    val dates_in_months = fn : DATE list * int list -> DATE list
-    val get_nth = fn : string list * int -> string
-    val date_to_string = fn : DATE -> string
-    val number_before_reaching_sum = fn : int * int list -> int
-    val what_month = fn : int -> int
-    val month_range = fn : int * int -> int list
-
-val oldest = fn : DATE list -> DATE option
-val reasonable_date = fn : DATE -> bool
-
-*)
