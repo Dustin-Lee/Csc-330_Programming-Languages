@@ -1,10 +1,9 @@
-(*  Assignment #1 *)
-(*"hello world"*)
+(* Dustin Chang *)
+(* Assignment #1 *)
 
 type DATE  = {year:int, month:int, day: int}
 exception InvalidParameter
 
-(* this file is where your solutions go *)
 (*1*)
 fun is_older(d1: DATE, d2: DATE): bool =
     if(#year d1 >  #year d2)
