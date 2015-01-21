@@ -24,6 +24,20 @@ fun get_substitutions1(sll: string list list, s: string): string list =
 			 NONE => get_substitutions1(xl, s)
 		       | SOME l => l@get_substitutions1(xl, s)
 
+(*3*)
+fun get_substitutions2(sll: string list list, s: string): string list =
+    let fun recur(sll: string list list, s: string, acc: string list): string list =
+	    case sll of
+		[] => acc
+	      | x::xl => case all_except_option(s, x) of
+			     NONE => recur(xl, s, acc)
+			   | SOME l => recur(xl, s, acc@l)
+    in
+	recur(sll, s, [])
+    end
+
+
+
 (*
 if(all_except_option(s, lst))
 	       then 

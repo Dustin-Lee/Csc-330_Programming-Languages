@@ -36,7 +36,7 @@ val test2_3=get_substitutions1([["Neo","New"],["Panzer","Tank","Sherman"],["Tank
 val test2_4=get_substitutions1([["Neo","New", "Nuovo"],["Panzer","Tank","Sherman"],["Tank", "Container"],["Epoch","Era"]],
                                "Neo")
             = ["New","Nuovo"]
-(*
+
 val test3_1=get_substitutions2([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
                                "Fred")
             = ["Fredrick","Freddie","F"]
@@ -49,7 +49,7 @@ val test3_3=get_substitutions2([["Neo","New"],["Panzer","Tank","Sherman"],["Tank
 val test3_4=get_substitutions1([["Neo","New", "Nuovo"],["Panzer","Tank","Sherman"],["Tank", "Container"],["Epoch","Era"]],
                                "Neo")
             = ["New","Nuovo"]
-
+(*
 val test4_1=similar_names([
                              ["Thomas", "Neo"],
                              ["Batman", "Hulk","Bruce"],
