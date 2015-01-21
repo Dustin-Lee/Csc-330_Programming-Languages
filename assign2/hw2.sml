@@ -2,7 +2,6 @@
 
 (* if you use this function to compare two strings (returns true if the same
    string), then you avoid some warning regarding polymorphic comparison  *)
-
 fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
@@ -51,13 +50,6 @@ fun similar_names(sll: string list list, nam) =
 	    {first:string,middle:string,last:string} => helper(first::get_substitutions2(sll,first), nam, [])
     end
 
-
-
-
-(*TESTING
-
-*)
-
 (************************************************************************)
 (* Game  *)
 
@@ -74,3 +66,9 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 
 (* put your solutions for Part 2 here *)
+fun card_color(c1: card): color =
+    case c1 of
+	(suit, rank) => if(suit = Spades orelse suit = Clubs)
+			      then Black
+			else
+			    Red

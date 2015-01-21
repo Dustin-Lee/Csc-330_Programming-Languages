@@ -68,7 +68,7 @@ val test4_2=similar_names([
              {first="Fredrick",last="Smith",middle="W"},
              {first="Freddie",last="Smith",middle="W"},
              {first="F",last="Smith",middle="W"}]
-(*
+
 val ClubAce = (Clubs,Ace)
 val DiamondsJack = (Diamonds,Jack)
 val Hearts10 = (Hearts, Num 10)
@@ -78,7 +78,7 @@ val test5_1= card_color(ClubAce) = Black
 val test5_2= card_color(DiamondsJack) = Red
 val test5_3= card_color(Hearts10) = Red
 val test5_4= card_color(Spades5) = Black
-
+(*
 val test6_1= card_value(ClubAce) = 11
 val test6_2= card_value(DiamondsJack) = 10
 val test6_3= card_value(Hearts10) = 10
