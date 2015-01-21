@@ -1,5 +1,4 @@
 (*Dustin Chang*)
-type name = {first:string, last:string, middle:string}
 
 (* if you use this function to compare two strings (returns true if the same
    string), then you avoid some warning regarding polymorphic comparison  *)
@@ -56,23 +55,6 @@ fun similar_names(sll: string list list, nam) =
 
 
 (*TESTING
-    let fun helper(sll: string list list, nam: name, acc) =
-	    case nam of
-		{} => []
-	      | {x,y,z} => case get_substitutions2(sll, x)
-				[] => {x,z,y}@acc
-			      | s:sl => helper(slacc@{s,z,y}
-
-
-
-case sll of
-			       [] => {x,z,y}@acc {x,z,y} | {x,z,y}@acc) inside a function and call with empty record
-			     | s::sl => helper(
-
-
-case get_substitutions2(sll, x) of
-			       [] => []
-			     | s::sl => 
 
 *)
 
