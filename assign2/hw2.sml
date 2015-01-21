@@ -1,3 +1,6 @@
+(*Dustin Chang*)
+type name = {first:string, last:string, middle:string}
+
 (* if you use this function to compare two strings (returns true if the same
    string), then you avoid some warning regarding polymorphic comparison  *)
 
@@ -36,17 +39,42 @@ fun get_substitutions2(sll: string list list, s: string): string list =
 	recur(sll, s, [])
     end
 
+(*4*)
+fun similar_names(sll: string list list, nam) =
+    let 
+	fun helper(sl: string list, nam, acc) =
+	    case sl of
+		[] => acc
+	      | x::xl => case nam of
+			    {first,middle,last} => helper(xl, nam, acc@[{first=x, middle=middle, last=last}])
+    in
+	case nam of
+	    {first:string,middle:string,last:string} => helper(first::get_substitutions2(sll,first), nam, [])
+    end
 
 
-(*
-if(all_except_option(s, lst))
-	       then 
-	       else
+
+
+(*TESTING
+    let fun helper(sll: string list list, nam: name, acc) =
+	    case nam of
+		{} => []
+	      | {x,y,z} => case get_substitutions2(sll, x)
+				[] => {x,z,y}@acc
+			      | s:sl => helper(slacc@{s,z,y}
+
+
+
+case sll of
+			       [] => {x,z,y}@acc {x,z,y} | {x,z,y}@acc) inside a function and call with empty record
+			     | s::sl => helper(
+
+
+case get_substitutions2(sll, x) of
+			       [] => []
+			     | s::sl => 
+
 *)
-
-
-			  
-	
 
 (************************************************************************)
 (* Game  *)

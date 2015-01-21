@@ -49,7 +49,7 @@ val test3_3=get_substitutions2([["Neo","New"],["Panzer","Tank","Sherman"],["Tank
 val test3_4=get_substitutions1([["Neo","New", "Nuovo"],["Panzer","Tank","Sherman"],["Tank", "Container"],["Epoch","Era"]],
                                "Neo")
             = ["New","Nuovo"]
-(*
+
 val test4_1=similar_names([
                              ["Thomas", "Neo"],
                              ["Batman", "Hulk","Bruce"],
@@ -68,7 +68,7 @@ val test4_2=similar_names([
              {first="Fredrick",last="Smith",middle="W"},
              {first="Freddie",last="Smith",middle="W"},
              {first="F",last="Smith",middle="W"}]
-
+(*
 val ClubAce = (Clubs,Ace)
 val DiamondsJack = (Diamonds,Jack)
 val Hearts10 = (Hearts, Num 10)
