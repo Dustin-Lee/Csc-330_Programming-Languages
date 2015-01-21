@@ -66,9 +66,20 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 
 (* put your solutions for Part 2 here *)
+(*5*)
 fun card_color(c1: card): color =
     case c1 of
 	(suit, rank) => if(suit = Spades orelse suit = Clubs)
 			      then Black
 			else
 			    Red
+
+(*6*)
+fun card_value(c1: card): int =
+    case c1 of
+	(_,Ace) => 11
+      | (_,Num x) => x
+      | (_,KQJ) => 10
+
+(*7*)
+fun remove_card
