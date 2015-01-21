@@ -82,4 +82,8 @@ fun card_value(c1: card): int =
       | (_,KQJ) => 10
 
 (*7*)
-fun remove_card
+fun remove_card([]: card list, c: card, e: exn): card list = raise e
+  | remove_card(c1::cl: card list, c: card, e: exn): card list =
+    case c1=c of
+	true => cl
+      | false => c1::remove_card(cl, c, e)

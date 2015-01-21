@@ -88,7 +88,7 @@ val test6_3= card_value(Hearts10) = 10
 val test6_4= card_value(Spades5) = 5
 val test6_5= card_value(Spades, Queen) = 10
 val test6_6= card_value(Spades, King) = 10
-(*
+
 exception notFound
 
 val cards1 = [(Clubs, Ace), (Diamonds, Num 10), (Spades, Num 4), (Clubs, Num 4)]
@@ -102,7 +102,7 @@ val test7_2 = remove_card(cards1, (Spades, Num 4), notFound) = [(Clubs, Ace), (D
 val test7_3 = remove_card(cards3, (Clubs, Num 9), notFound) = [(Clubs,Ace),(Diamonds,Num 10),(Spades,Num 5)]
 val test7_4 = remove_card(cards5, (Diamonds, Ace), notFound) = [(Diamonds, Num 10), (Diamonds, Queen), (Diamonds, Jack), (Diamonds,King)]
 val test7_5 = remove_card(cards2, (Clubs, Ace), notFound) = [] handle notFound => true
-
+(*
 val test8_1 = all_same_color(cards1) = false
 val test8_2 = all_same_color(cards2) = true
 val test8_3 = all_same_color(cards3) = false
