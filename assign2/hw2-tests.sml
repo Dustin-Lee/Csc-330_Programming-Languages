@@ -1,20 +1,5 @@
+(*Dustin Chang*)
 (* Tests for assignment 2 *)
-
-(*
- * Version 1.3
-*
-* Changelog:
-* 2015-01-20  dmg  <dmg@uvic.ca>
-*       * fixed test11_6, test11_8, test11_12 (game should stop when the sum
-*          of the cards---not the score--is above the goal)
-*
-* 2015-01-19  dmg  <dmg@uvic.ca>
-*	* fixed test11_10
-*
-* 2015-01-17  dmg  <dmg@uvic.ca>
-*	* fixed test7_1
-*
-*)
 
 (* Place your tests at the end of the file *)
 
@@ -135,8 +120,6 @@ val test11_9 = officiate(cards5, [Draw, Draw, Draw, Discard (Spades, Num 2)], 45
 val test11_10 = officiate(cards2, [Draw], 10) = 5
 val test11_11 = officiate(cards2, [Discard (Spades, Ace)], 10) = 5 handle IllegalMove => true
 val test11_12 = officiate(cards3, [Draw, Discard (Spades, Num 7)], 10) = 1
-(*
-*)
 
 (*********************************************************************** *)
 (* Your tests go after this *)
@@ -171,20 +154,3 @@ val test9_0 = sum_cards(cards6) = 50
 val test10_0 = score(cards6, 22) = 28 * 2
 
 val test11_0 = officiate(cards6, [Draw,Draw,Draw,Draw,Discard (Diamonds, Num 10)], 35) = 6*2
-
-(*
-val cards6 = [(Clubs, Ace), (Hearts, Queen), (Diamonds, Num 10), (Spades, King), (Clubs, Num 9)]
-
-val test4_1=similar_names([
-                             ["Thomas", "Neo"],
-                             ["Batman", "Hulk","Bruce"],
-                             ["Spiderman", "Peter"]
-                         ], {first="Bruce", middle = "(whoknows)", last="Wayne"}) =
-            [{first="Bruce",last="Wayne",middle="(whoknows)"},
-             {first="Batman",last="Wayne",middle="(whoknows)"},
-             {first="Hulk",last="Wayne",middle="(whoknows)"}]
-
-
-val test2_1=get_substitutions1([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
-                               "Fred")
-            = ["Fredrick","Freddie","F"]*)
