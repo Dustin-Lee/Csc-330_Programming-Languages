@@ -90,12 +90,9 @@ fun remove_card([]: card list, c: card, e: exn): card list = raise e
 
 (*8*)
 fun all_same_color([]: card list): bool = true
-  | all_same_color(c::cl: card list): bool =
-    case c of
-	(suit,rank) => case cl of
-			   [] => true
-			 | x::xl => case x of
-					 (suit2,rank2) => if(suit=suit2)
-							  then all_same_color(cl)
-							  else false
-
+  | all_same_color([single]: card list): bool = true (*Only one card so true*)
+  | all_same_color(c::ct: card list): bool =
+    case ct of
+	x::xt => case card_color(c)=card_color(x) of
+		     true => all_same_color(ct)
+		   | false => false
