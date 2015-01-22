@@ -87,3 +87,15 @@ fun remove_card([]: card list, c: card, e: exn): card list = raise e
     case c1=c of
 	true => cl
       | false => c1::remove_card(cl, c, e)
+
+(*8*)
+fun all_same_color([]: card list): bool = true
+  | all_same_color(c::cl: card list): bool =
+    case c of
+	(suit,rank) => case cl of
+			   [] => true
+			 | x::xl => case x of
+					 (suit2,rank2) => if(suit=suit2)
+							  then all_same_color(cl)
+							  else false
+
