@@ -92,7 +92,8 @@ fun all_same_color([]: card list): bool = true
   | all_same_color([single]: card list): bool = true (*Only one card so true*)
   | all_same_color(c::ct: card list): bool =
     case ct of
-	x::xt => case card_color(c)=card_color(x) of
+	[] => true
+      | x::xt => case card_color(c)=card_color(x) of
 		     true => all_same_color(ct)
 		   | false => false
 
