@@ -139,5 +139,3 @@ fun officiate(cl: card list, mov: move list, goal: int): int =
     in
 	helper(cl, mov, goal, [], IllegalMove)
     end
-
-(* datatype move = Discard of card | Draw *)
