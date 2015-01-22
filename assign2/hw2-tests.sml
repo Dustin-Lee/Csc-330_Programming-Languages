@@ -140,3 +140,31 @@ val test11_12 = officiate(cards3, [Draw, Discard (Spades, Num 7)], 10) = 1
 
 (*********************************************************************** *)
 (* Your tests go after this *)
+val test1_0=all_except_option("9",["4","9","8","10","7"]) = SOME ["4","8","10","7"]
+
+val test2_0=get_substitutions1([["Linux","Ubuntu"],["Xubuntu","Ubuntu"],["Deepin","Elementary","Mint"]], "Ubuntu") = ["Linux", "Xubuntu"]
+
+val test3_0=get_substitutions2([["Linux","Ubuntu","Xubuntu","Deepin","Elementary","Mint"],["Mac OS X", "Mavericks","Yosemite"], ["Windows","7","8","8.1","10"]], "Mac OS X") = ["Mavericks", "Yosemite"]
+
+val test4_0=similar_names([ ["Android", "Arch"],
+			    ["Lollipop", "Linux","KitKat"],
+			    ["Windows", "Mac OS X"]],
+			  {first="Linux", middle = "Android", last="Version"}) =
+	    [{first="Linux",last="Version",middle="Android"},
+	     {first="Lollipop",last="Version",middle="Android"},
+             {first="KitKat",last="Version",middle="Android"}]
+
+
+(*val test4_1=similar_names([
+                             ["Thomas", "Neo"],
+                             ["Batman", "Hulk","Bruce"],
+                             ["Spiderman", "Peter"]
+                         ], {first="Bruce", middle = "(whoknows)", last="Wayne"}) =
+            [{first="Bruce",last="Wayne",middle="(whoknows)"},
+             {first="Batman",last="Wayne",middle="(whoknows)"},
+             {first="Hulk",last="Wayne",middle="(whoknows)"}]
+
+
+val test2_1=get_substitutions1([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
+                               "Fred")
+            = ["Fredrick","Freddie","F"]*)
