@@ -96,3 +96,15 @@ fun all_same_color([]: card list): bool = true
 	x::xt => case card_color(c)=card_color(x) of
 		     true => all_same_color(ct)
 		   | false => false
+
+(*9*)
+fun sum_cards(cl: card list): int =
+    let
+	fun helper(cl, acc): int =
+	    case cl of
+		[] => acc
+	      | c::tail => helper(tail, card_value(c)+acc)
+    in
+	helper(cl, 0)
+    end
+	    
