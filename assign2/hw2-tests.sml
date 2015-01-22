@@ -154,8 +154,28 @@ val test4_0=similar_names([ ["Android", "Arch"],
 	     {first="Lollipop",last="Version",middle="Android"},
              {first="KitKat",last="Version",middle="Android"}]
 
+val HeartsQueen = (Hearts,Queen)
 
-(*val test4_1=similar_names([
+val test5_0= card_color(HeartsQueen) = Red
+
+val test6_0= card_value(HeartsQueen) = 10
+
+val cards6 = [(Clubs, Ace), (Hearts, Queen), (Diamonds, Num 10), (Spades, King), (Clubs, Num 9)]
+
+val test7_0 = remove_card(cards6, (Clubs, Num 9), notFound) = [(Clubs, Ace), (Hearts, Queen), (Diamonds,Num 10),(Spades,King)]
+
+val test8_0 = all_same_color(cards6) = false
+
+val test9_0 = sum_cards(cards6) = 50
+
+val test10_0 = score(cards6, 22) = 28 * 2
+
+val test11_0 = officiate(cards6, [Draw,Draw,Draw,Draw,Discard (Diamonds, Num 10)], 35) = 6*2
+
+(*
+val cards6 = [(Clubs, Ace), (Hearts, Queen), (Diamonds, Num 10), (Spades, King), (Clubs, Num 9)]
+
+val test4_1=similar_names([
                              ["Thomas", "Neo"],
                              ["Batman", "Hulk","Bruce"],
                              ["Spiderman", "Peter"]
