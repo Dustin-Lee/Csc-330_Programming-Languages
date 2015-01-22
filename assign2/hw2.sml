@@ -62,7 +62,6 @@ type card = suit * rank
 datatype color = Red | Black
 datatype move = Discard of card | Draw
 
-
 exception IllegalMove
 
 (* put your solutions for Part 2 here *)
@@ -107,4 +106,38 @@ fun sum_cards(cl: card list): int =
     in
 	helper(cl, 0)
     end
-	    
+
+(*10*)
+fun score(cl: card list, goal: int): int =
+    let
+	fun calc(sum: int, goal: int): int =
+	    case all_same_color(cl) of
+		true => if(sum>goal)
+			then (sum-goal)
+			else (goal-sum) div 2
+	      | false => if(sum>goal)
+			then (sum-goal)*2
+			else goal-sum
+
+    in
+	calc(sum_cards(cl), goal)
+    end
+
+(*11*)
+fun officiate(cl: card list, mov: move list, goal: int): int =
+    let
+	fun helper(cardList: card list, mov: move list, goal: int, held: card list, e: exn): int =
+	    case mov of
+		[] => score(held, goal)
+	      | m::ml => if(sum_cards(held)>goal)
+			 then score(held, goal)
+			 else case m of
+				  Discard crd => helper(cardList, ml, goal, (remove_card(held, crd, e)), e)
+				| Draw => case cardList of
+					      [] => score(held, goal)
+					    | c::ct => helper(ct, ml, goal, (c::held), e)
+    in
+	helper(cl, mov, goal, [], IllegalMove)
+    end
+
+(* datatype move = Discard of card | Draw *)

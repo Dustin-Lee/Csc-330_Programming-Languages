@@ -115,7 +115,7 @@ val test9_2 = sum_cards(cards2) = 0
 val test9_3 = sum_cards(cards3) = 35
 val test9_4 = sum_cards(cards4) = 28
 val test9_5 = sum_cards(cards5) = 51
-(*
+
 val test10_1 = score(cards1, 1) = 28 * 2
 val test10_2 = score(cards2, 28) = 14 (* empty list is conssidered same color *)
 val test10_3 = score(cards3, 35) = 0
@@ -135,7 +135,7 @@ val test11_9 = officiate(cards5, [Draw, Draw, Draw, Discard (Spades, Num 2)], 45
 val test11_10 = officiate(cards2, [Draw], 10) = 5
 val test11_11 = officiate(cards2, [Discard (Spades, Ace)], 10) = 5 handle IllegalMove => true
 val test11_12 = officiate(cards3, [Draw, Discard (Spades, Num 7)], 10) = 1
-
+(*
 *)
 
 (*********************************************************************** *)
