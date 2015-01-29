@@ -61,3 +61,10 @@ fun longest_string4 sl =
     in
 	longest_string_helper (comp_str, sl)
     end
+
+(*5*)
+fun longest_capitalized(sl): string =
+    (longest_string1 o only_capitals) sl
+
+(*6*)
+fun 

@@ -121,7 +121,7 @@ fun test_longest_string4() =
           {actual=longest_string4(["Mexico","Ottawa"]), expected="Ottawa"},
           {actual=longest_string4(swords), expected="dog"}
         ])
-(*
+
 fun test_longest_cap() =
   let
     val words = ["This","the","A","Hello","World","not","long string","loooong string"]
@@ -135,7 +135,7 @@ fun test_longest_cap() =
           {actual=longest_capitalized ["then","the","to","testing"], expected=""}
         ])
     end
-
+(*
 fun test_rev_string() =
     test("rev_string", [
           {actual=rev_string "Hello World!", expected="!dlroW olleH"},
@@ -351,8 +351,8 @@ val all_tests =
      test_longest_string1,
      test_longest_string2,
      test_longest_string3,
-     test_longest_string4(*,
-     test_longest_cap,
+     test_longest_string4,
+     test_longest_cap(*,
      test_rev_string,
      test_first_answer,
      test_first_answer_exc,
