@@ -199,7 +199,7 @@ fun test_count_some_var() =
        {actual=count_some_var ("test",
                   TupleP [TupleP [Wildcard, UnitP, Variable "test"]]),
          expected=1}])
-(*
+
 fun test_check_pat() =
     test("check_pat",
          [{actual=check_pat (TupleP [Wildcard,Variable "cat",
@@ -212,7 +212,7 @@ fun test_check_pat() =
                             Wildcard,ConstP 3,
                             ConstructorP("cony",Variable "test")]),
            expected=true}])
-
+(*
 fun test_match() =
     test("test_match",
          [{actual=match(Unit, UnitP),
@@ -358,8 +358,8 @@ val all_tests =
      test_first_answer_exc,
      test_all_answers,
      test_count_wildcards,
-     test_count_some_var(*,
-     test_check_pat,
+     test_count_some_var,
+     test_check_pat(*,
      test_match,
      test_first_match
 *)

@@ -109,3 +109,18 @@ fun count_some_var(s, p) =
     g (fn x => 0) (fn x => if s=x then 1 else 0) p
 
 (*10*)
+fun check_pat(p) =
+    let
+	fun strings(p) =
+	    case p of
+		Variable x => [x]
+	      | TupleP y => List.foldl (fn (p,i) => (strings p) @ i) [] y
+	      | ConstructorP(_,p) => strings p
+	      | _ => []
+	fun no_repeat(str_list) =
+	    case str_list of
+		[] => true
+	      | x::xl => if List.exists (fn z => z=x) xl then false else no_repeat xl
+    in
+	no_repeat(strings (p))
+    end
