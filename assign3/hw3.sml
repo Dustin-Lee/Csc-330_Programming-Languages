@@ -83,16 +83,29 @@ fun all_answers func some_list =
 	all_answers_helper(some_list, [])
     end
 
+(*9*)
+	(*a*)
+	(*g is in curried form and takes two functions, f1 and f2, and another
+          parameter p. Then for whatever case of p, is how it decides what
+          to return for:
+          Wildcard: returns an empty list of bindinds
+          Variable x: returns a single element list holding alpha type of (s,v)
+          TupleP ps: returns a list
+          ConstructorP(_,p): returns a list of pattern matchs
+          _: returns 0
+          *)
 
-(*
-    let
-	fun all_answers_helper func some_list acc =
-	    case some_list of
-		[] => valOf(acc)
-	      | x::xl => case func x of
-			     NONE => NONE (* all_answer_helper ((func xl), acc)*)
-			   | SOME v => all_answers_helper func xl (v@acc)
-    in
-	all_answers_helper func some_list []
-    end
-*)
+
+      (*b*)
+fun count_wildcards(pattern) =
+    g (fn s => 1) (fn x => 0) pattern
+
+      (*c*)
+fun count_wild_and_variable_lengths(pat) =
+    g (fn s => 1) (fn s => String.size s) pat
+
+      (*d*)
+fun count_some_var(s, p) =
+    g (fn x => 0) (fn x => if s=x then 1 else 0) p
+
+(*10*)

@@ -149,7 +149,7 @@ fun test_first_answer() =
           {actual=first_answer (fn x => if (x mod 2) = 0 then SOME x else NONE) [1,1,4,3],expected=4},
           {actual=first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5], expected=4}
         ])
-(*
+
 fun test_first_answer_exc() =
     test("first_answer_exception",[
           {actual=(first_answer
@@ -160,7 +160,7 @@ fun test_first_answer_exc() =
            handle NoAnswer => true,
            expected=true}
         ])
-*)
+
 fun test_all_answers() =
     test("all_answers",
     [{actual=all_answers (fn x => if (x < 0) then NONE else SOME ([1,2,3])) [1,2,3],
@@ -174,7 +174,7 @@ fun test_all_answers() =
     {actual=all_answers (fn x => if x = 1 then SOME [x] else NONE) [1,2,1,2,1,2], expected=NONE},
     {actual=all_answers (fn x => if (x < 0) then NONE else SOME ([1])) [],
       expected=SOME []}])
-(*
+
 fun test_count_wildcards () =
     test("count_wildcards",
     [{actual=count_wildcards(Wildcard),expected=1},
@@ -199,7 +199,7 @@ fun test_count_some_var() =
        {actual=count_some_var ("test",
                   TupleP [TupleP [Wildcard, UnitP, Variable "test"]]),
          expected=1}])
-
+(*
 fun test_check_pat() =
     test("check_pat",
          [{actual=check_pat (TupleP [Wildcard,Variable "cat",
@@ -354,11 +354,11 @@ val all_tests =
      test_longest_string4,
      test_longest_cap,
      test_rev_string,
-     test_first_answer,(*
-     test_first_answer_exc,*)
-     test_all_answers(*,
-     test_count_wildcards ,
-     test_count_some_var,
+     test_first_answer,
+     test_first_answer_exc,
+     test_all_answers,
+     test_count_wildcards,
+     test_count_some_var(*,
      test_check_pat,
      test_match,
      test_first_match
