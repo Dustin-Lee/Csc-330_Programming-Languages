@@ -212,7 +212,7 @@ fun test_check_pat() =
                             Wildcard,ConstP 3,
                             ConstructorP("cony",Variable "test")]),
            expected=true}])
-(*
+
 fun test_match() =
     test("test_match",
          [{actual=match(Unit, UnitP),
@@ -289,7 +289,7 @@ fun test_match() =
            expected=SOME [("a",Const 7), ("ab",Const 6), ("abc",Unit), ("abcd",Const 7)
           ]}
          ])
-
+(*
 fun test_first_match() =
     test("test_first_match",
          [
@@ -359,8 +359,8 @@ val all_tests =
      test_all_answers,
      test_count_wildcards,
      test_count_some_var,
-     test_check_pat(*,
-     test_match,
+     test_check_pat,
+     test_match(*,
      test_first_match
 *)
      ]
