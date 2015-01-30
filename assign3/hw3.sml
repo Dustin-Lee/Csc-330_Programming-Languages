@@ -60,4 +60,12 @@ fun longest_capitalized(sl): string =
 
 (*6*)
 fun rev_string(s): string =
-    ((fn sl2 => String.implode sl2) o (fn sl => List.rev sl) o (fn s => String.explode s)) s
+    (String.implode o List.rev o String.explode) s
+
+(*7*)
+fun first_answer func someList =
+    case someList of
+	[] => raise NoAnswer
+      | x::xl => case func x of
+		     NONE => first_answer func xl
+		   | SOME v => v
