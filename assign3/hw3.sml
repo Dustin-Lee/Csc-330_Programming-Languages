@@ -63,9 +63,36 @@ fun rev_string(s): string =
     (String.implode o List.rev o String.explode) s
 
 (*7*)
-fun first_answer func someList =
-    case someList of
+fun first_answer func some_list =
+    case some_list of
 	[] => raise NoAnswer
       | x::xl => case func x of
 		     NONE => first_answer func xl
 		   | SOME v => v
+
+(*8*)
+fun all_answers func some_list =
+    let
+	fun all_answers_helper(some_list, acc) =
+	    case some_list of
+		[] => SOME acc
+	      | x::xl => case func x of
+			     NONE => NONE
+			   | SOME v => all_answers_helper(xl, acc@v)
+    in
+	all_answers_helper(some_list, [])
+    end
+
+
+(*
+    let
+	fun all_answers_helper func some_list acc =
+	    case some_list of
+		[] => valOf(acc)
+	      | x::xl => case func x of
+			     NONE => NONE (* all_answer_helper ((func xl), acc)*)
+			   | SOME v => all_answers_helper func xl (v@acc)
+    in
+	all_answers_helper func some_list []
+    end
+*)

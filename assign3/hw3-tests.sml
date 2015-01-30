@@ -160,7 +160,7 @@ fun test_first_answer_exc() =
            handle NoAnswer => true,
            expected=true}
         ])
-
+*)
 fun test_all_answers() =
     test("all_answers",
     [{actual=all_answers (fn x => if (x < 0) then NONE else SOME ([1,2,3])) [1,2,3],
@@ -174,7 +174,7 @@ fun test_all_answers() =
     {actual=all_answers (fn x => if x = 1 then SOME [x] else NONE) [1,2,1,2,1,2], expected=NONE},
     {actual=all_answers (fn x => if (x < 0) then NONE else SOME ([1])) [],
       expected=SOME []}])
-
+(*
 fun test_count_wildcards () =
     test("count_wildcards",
     [{actual=count_wildcards(Wildcard),expected=1},
@@ -354,9 +354,9 @@ val all_tests =
      test_longest_string4,
      test_longest_cap,
      test_rev_string,
-     test_first_answer(*,
-     test_first_answer_exc,
-     test_all_answers,
+     test_first_answer,(*
+     test_first_answer_exc,*)
+     test_all_answers(*,
      test_count_wildcards ,
      test_count_some_var,
      test_check_pat,
