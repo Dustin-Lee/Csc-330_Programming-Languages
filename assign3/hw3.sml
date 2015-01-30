@@ -84,7 +84,7 @@ fun all_answers func some_list =
     end
 
 (*9*)
-	(*a*)
+     (*a*)
 	(*g is in curried form and takes two functions, f1 and f2, and another
           parameter p. Then for whatever case of p, is how it decides what
           to return for:
@@ -139,3 +139,7 @@ fun match(value, pattern) =
 						     then match(v,p)
 						     else NONE
       | (_,_) => NONE
+
+(*12*)
+fun first_match value pat_list =
+    SOME (first_answer (fn x => match(value,x)) pat_list) handle NoAnswer => NONE

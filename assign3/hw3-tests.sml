@@ -289,7 +289,7 @@ fun test_match() =
            expected=SOME [("a",Const 7), ("ab",Const 6), ("abc",Unit), ("abcd",Const 7)
           ]}
          ])
-(*
+
 fun test_first_match() =
     test("test_first_match",
          [
@@ -345,7 +345,7 @@ fun test_first_match() =
               ("abcd",Const 7)
            ]}
         ])
-*)
+
 val all_tests =
     [test_only_capitals,
      test_longest_string1,
@@ -360,9 +360,8 @@ val all_tests =
      test_count_wildcards,
      test_count_some_var,
      test_check_pat,
-     test_match(*,
+     test_match,
      test_first_match
-*)
      ]
 
 fun run() =
