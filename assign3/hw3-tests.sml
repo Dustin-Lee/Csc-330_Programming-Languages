@@ -135,7 +135,7 @@ fun test_longest_cap() =
           {actual=longest_capitalized ["then","the","to","testing"], expected=""}
         ])
     end
-(*
+
 fun test_rev_string() =
     test("rev_string", [
           {actual=rev_string "Hello World!", expected="!dlroW olleH"},
@@ -143,7 +143,7 @@ fun test_rev_string() =
           {actual=rev_string "anna", expected="anna"},
           {actual=rev_string "", expected=""
         }])
-
+(*
 fun test_first_answer() =
     test("first_answer", [
           {actual=first_answer (fn x => if (x mod 2) = 0 then SOME x else NONE) [1,1,4,3],expected=4},
@@ -352,8 +352,8 @@ val all_tests =
      test_longest_string2,
      test_longest_string3,
      test_longest_string4,
-     test_longest_cap(*,
-     test_rev_string,
+     test_longest_cap,
+     test_rev_string(*,
      test_first_answer,
      test_first_answer_exc,
      test_all_answers,
