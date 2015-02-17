@@ -22,9 +22,9 @@
    (check-equal? (sequence 0 5 1) (list 0 1 2 3 4 5) "Sequence test")
 
    ; string-append-map test
-;   (check-equal? (string-append-map
-;                  (list "cat" "dog" "curry" "dog2")
-;                  ".jpg") '("cat.jpg" "dog.jpg" "curry.jpg" "dog2.jpg") "string-append-map test")
+   (check-equal? (string-append-map
+                  (list "cat" "dog" "curry" "dog2")
+                  ".jpg") '("cat.jpg" "dog.jpg" "curry.jpg" "dog2.jpg") "string-append-map test")
 
    ; list-nth-mod test
 ;   (check-equal? (list-nth-mod (list 0 1 2 3 4) 2) 2 "list-nth-mod test")
