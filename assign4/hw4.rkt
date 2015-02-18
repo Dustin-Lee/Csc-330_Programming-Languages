@@ -49,4 +49,6 @@
 
 ;; 8
 ;; Takes 2 lists --> rtns a stream
-(define
+(define (cycle-lists xs ys)
+  (letrec ([f (lambda (n) (cons (cons (list-nth-mod xs n) (list-nth-mod ys n)) (lambda () (f (+ n 1)))))])
+    (lambda () (f 0))))
