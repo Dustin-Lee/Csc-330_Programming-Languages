@@ -3,7 +3,8 @@
 
 (provide (all-defined-out)) ;; so we can put tests in a second file
 
-;; put your code below
+; Dustin Chang
+; Csc330 Assign 4
 
 ;; 1
 (define (sequence low high stride)
@@ -36,7 +37,16 @@
     (lambda () (f 1))))
 
 ;; 6
-;; 
+;; Creates a stream starting with cat.jpg that alternates cat-dog-cat...
 (define cat-then-dog
   (letrec ([f (lambda (x) (cons (if (equal? (remainder x 2) 0) "dog.jpg" "cat.jpg") (lambda () (f (+ x 1)))))])
     (lambda () (f 1))))
+
+;; 7
+;; Takes a stream --> rtns a stream; produces a pair (0.v) for it's i-th element
+(define (stream-add-zero s)
+  (lambda () (cons (cons 0 (car (s))) (stream-add-zero (cdr (s))))))
+
+;; 8
+;; Takes 2 lists --> rtns a stream
+(define
