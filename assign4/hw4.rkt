@@ -28,3 +28,8 @@
       '()
       (let ([stm (s)])
         (cons (car stm) (stream-for-n-steps (cdr stm) (- n 1))))))
+
+;; 5
+(define funny-number-stream
+  (letrec ([f (lambda (x) (cons (if (equal? (remainder x 5) 0) (- x) x) (lambda () (f (+ x 1)))))])
+    (lambda () (f 1))))
