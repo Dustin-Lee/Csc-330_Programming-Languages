@@ -20,14 +20,3 @@
   (cond [(< n 0) (error "list-nth-mod: negative number")]
         [(null? xs) (error "list-nth-mod: empty list")]
         [#t (let ([r (remainder n (length xs))]) (car (list-tail xs r)))]))
-              
-
-
-
-;
-;         (list-nth-mod (list-tail xs 1) (- n 1))]))
-;
-;(define (list-nth-mod xs n) 
-;  (cond [(< n 0) (error "list-nth-mod: negative number")]
-;        [(null? xs) (error "list-nth-mod: empty list")]
-;        [#t (let ([rem (remainder n (length xs))]) (car (list-tail xs rem)))]))
