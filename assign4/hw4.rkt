@@ -61,3 +61,21 @@
                                 [(pair? (vector-ref vec n)) (if (equal? (car (vector-ref vec n)) v) (vector-ref vec n) (f (+ n 1)))]
                                 [#t (f (+ n 1))]))])
     (f 0)))
+
+;; 10
+;; Takes a list and number --> rtns a function that takes an arg and rtns same as (assoc v xs) would rtn
+(define (cached-assoc xs n)
+  (letrec ([cach (make-vector n)]
+           [counter 0]
+           [f (lambda(v)
+                (let ([ans (vector-assoc v cach)])
+                  (if ans
+                      ans
+                      (let ([ans2 (assoc v xs)])
+                        (if ans2
+                            (begin
+                              (vector-set! cach counter ans2)
+                              (set! counter (if (equal? (+ counter 1) n) 0 (+ counter 1)))
+                              ans2)
+                            ans2)))))])
+    f))
