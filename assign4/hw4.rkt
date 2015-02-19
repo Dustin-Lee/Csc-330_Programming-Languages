@@ -48,8 +48,16 @@
   (lambda () (cons (cons 0 (car (s))) (stream-add-zero (cdr (s))))))
 
 ;; 8
-;; Takes 2 lists --> rtns a stream
+;; Takes 2 lists --> rtns a stream; produces pairs cycling through each lists paired together continously
 (define (cycle-lists xs ys)
   (letrec ([f (lambda (n) (cons (cons (list-nth-mod xs n) (list-nth-mod ys n)) (lambda () (f (+ n 1)))))])
     (lambda () (f 0))))
 
+;; 9
+;; Takes a value & vector and behave like Racket's assoc library function
+
+(define (vector-assoc v vec) 
+  (letrec ([f (lambda (n) (cond [(equal? (vector-length vec) n) #f]
+                                [(pair? (vector-ref vec n)) (if (equal? (car (vector-ref vec n)) v) (vector-ref vec n) (f (+ n 1)))]
+                                [#t (f (+ n 1))]))])
+    (f 0)))
