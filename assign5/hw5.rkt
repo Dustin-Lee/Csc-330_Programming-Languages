@@ -59,6 +59,66 @@
                        (int-num v2)))
                (error "MUPL addition applied to non-number")))]
         ;; "CHANGE" add more cases here
+
+        [(ifgreater? e)
+         (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
+               [v2 (eval-under-env (ifgreater-e2 e) env)])
+           (if (and (int? v1) (int? v2))
+               (if (> (int-num v1) (int-num v2))
+                   (eval-under-env (ifgreater-e3 e) env)
+                   (eval-under-env (ifgreater-e4 e) env)
+               )
+               (error "MUPL ifgreater applied to non-number")))]
+        [(int? e) e]
+        ;[(mlet? e)
+         ;(letrec ([v (eval-under-env (mlet-e e) env)] ;letrec needed for, v in line below
+          ;     [env2 (cons (cons (mlet-var e) v) env)])
+         ;(eval-under-env (mlet-body e) env2))]
+        [(mlet? e)
+         (let ([v (eval-under-env (mlet-e e) env)])
+           (eval-under-env(mlet-body e) (cons (cons (mlet-var e) v) env)))]
+
+;        [(call? e)
+;         (letrec ([closur (eval-under-env (call-funexp e) env)]
+;                  [actul (eval-under-env (call-actual e) env)]
+;                  [funbody (fun-body (closure-fun closur))]
+;                  [funform (fun-formal (closure-fun closur))])
+;           (if (closure? closur)
+;               (eval-under-env (fun-body (closure-fun closur))
+;                               (cons (cons funform actul)
+;                                     (closure-env closur)))
+;               (error "MUPL can't call a function that isn't a closure")))]
+        [(call? e)
+         (let ([v1 (eval-under-env (call-funexp e) env)]
+               [v2 (eval-under-env (call-actual e) env)])
+           (if (closure? v1)
+               (let* ([c1 (closure-fun v1)]
+                      [c2 (closure-env v1)]
+                      [cn (cons (fun-nameopt c1) v1)]
+                      [cf (cons (fun-formal c1) v2)])
+                 (eval-under-env
+                  (fun-body c1)
+                  (if (eq? (car cn) #f)
+                      (cons cf c2)
+                      (cons cf (cons cn c2)))))
+               (error "MUPL call applied to non-closure")))]
+        [(fun? e) (closure env e)]
+        [(closure? e) e]
+        [(apair? e)
+         (let ([v1 (eval-under-env (apair-e1 e) env)]
+               [v2 (eval-under-env (apair-e2 e) env)])
+           (apair v1 v2))]
+        [(fst? e)
+         (let ([v (eval-under-env (fst-e e) env)])
+           (if (apair? v) (apair-e1 v) (begin (print v) (error "Can only call fst on a pair"))))]
+        [(snd? e)
+         (let ([v (eval-under-env (snd-e e) env)])
+           (if (apair? v) (apair-e2 v) (error "Can only call snd on a pair")))]
+        [(isaunit? e)
+          (if (aunit? (eval-under-env (isaunit-e e) env))
+              (int 1)
+              (int 0))]
+        [(aunit? e) e]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change

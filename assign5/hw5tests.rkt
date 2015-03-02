@@ -432,6 +432,6 @@
 
 
 (run-tests hw5-tests-part-A)
-;(run-tests hw5-tests-part-B)
+(run-tests hw5-tests-part-B)
 ;(run-tests hw5-tests-part-C)
 ;(run-tests hw5-tests-part-D)
