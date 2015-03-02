@@ -145,8 +145,17 @@
 
 ;; Problem D
 
-(define mupl-map "CHANGE")
+(define mupl-map
+  (fun #f "f" (fun "loop" "xs" 
+                   (ifgreater (isaunit (var "xs")) (int 0)
+                                (aunit)
+                                (apair (call (var "f") (fst (var "xs"))) (call (var "loop") (snd (var "xs"))))
+                   )
+               )
+  )
+)
 
 (define mupl-mapAddN
   (mlet "map" mupl-map
-        "CHANGE (notice map is now in MUPL scope)"))
+        (fun #f "i"
+             (call (var "map") (fun #f "x" (add (var "x") (var "i")))))))
