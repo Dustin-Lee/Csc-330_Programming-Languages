@@ -136,6 +136,7 @@ class Board
   # moves the current piece down by one, if this is not possible stores the
   # current piece and replaces it with a new one.
   def run
+    puts 'in run1'
     ran = @current_block.drop_by_one
     if !ran
       store_current
@@ -210,6 +211,7 @@ class Board
   # gets the information from the current piece about where it is and uses this
   # to store the piece on the board itself.  Then calls remove_filled.
   def store_current
+    puts 'In store_current1'
     locations = @current_block.current_rotation
     displacement = @current_block.position
     (0..3).each{|index| 

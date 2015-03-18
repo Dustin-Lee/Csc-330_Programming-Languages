@@ -8,6 +8,7 @@ class MyPiece < Piece
   # The constant All_My_Pieces should be declared here
   # your enhancements here
 
+=begin	#MIGHT NOT NEED
   def initialize (point_array, board)
     @all_rotations = point_array
     @rotation_index = (0..(@all_rotations.size-1)).to_a.sample
@@ -16,7 +17,7 @@ class MyPiece < Piece
     @board = board
     @moved = true
   end
-
+=end
   All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
 	               rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
 	               [[[0, 0], [-1, 0], [1, 0], [2, 0]], # long (only needs two)
@@ -41,10 +42,12 @@ class MyPiece < Piece
 	#puts @all_rotations.to_s
 	def self.next_piece (board)
 		puts 'In next_piece2.1'
-    MyPiece.new(All_My_Pieces.sample, board)
+		MyPiece.new(All_My_Pieces.sample, board)
   end
 
 end	#End of MyPiece
+
+
 
 class MyBoard < Board
   # your enhancements here
@@ -55,7 +58,6 @@ class MyBoard < Board
     @game = game
     @delay = 500
     puts 'In MyBoard'
-    puts @current_block
   end
   
   def next_piece
@@ -63,9 +65,75 @@ class MyBoard < Board
   	@current_pos = nil
   	puts 'In next_piece2.2'
   end
+
+=begin
+  def run
+  	puts 'in run2'
+    ran = @current_block.drop_by_one
+    if !ran
+      store_current
+      if !game_over?
+        next_piece
+      end
+    end
+    @game.update_score
+    draw
+  end
+=end
+
   #modify store_current HERE
+  def store_current
+  	puts 'In store_current2'
+  	locations = @current_block.current_rotation
+  	block_cells_size = locations.size
+  	puts block_cells_size
+  	#puts locations
+
+
+  	#abort("Ending")
+
+  	if locations[4] == nil
+  		displacement = @current_block.position
+	    (0..3).each{|index| 
+	      current = locations[index];
+	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+	      @current_pos[index]
+	    }
+	    remove_filled
+	    @delay = [@delay - 2, 80].max
+	  elsif locations[3] == nil
+	  	displacement = @current_block.position
+	    (0..2).each{|index| 
+	      current = locations[index];
+	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+	      @current_pos[index]
+	    }
+	    remove_filled
+	    @delay = [@delay - 2, 80].max
+	  elsif locations[1] == nil
+	  	displacement = @current_block.position
+	    	current = locations[0]
+	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+	      @current_pos[0]
+	    remove_filled
+	    @delay = [@delay - 2, 80].max
+	  else
+	  	displacement = @current_block.position
+	    (0..4).each{|index| 
+	      current = locations[index];
+	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+	      @current_pos[index]
+	    }
+	    remove_filled
+	    @delay = [@delay - 2, 80].max
+	  end
+
+  end #End of store_current
 
 end #End of MyBoard
+
+
+
 
 class MyTetris < Tetris
   # your enhancements here
@@ -82,6 +150,7 @@ class MyTetris < Tetris
                   @board.block_size * @board.num_columns + 6, 24, 80)
     @board.draw
   end
+
 end #End of MyTetris
 
 
