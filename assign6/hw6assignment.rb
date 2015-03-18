@@ -7,6 +7,9 @@
 class MyPiece < Piece
   # The constant All_My_Pieces should be declared here
   # your enhancements here
+  @cheat = false
+
+  Cheat_Piece = [[0, 0]]
 
   All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
 	               rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
@@ -24,8 +27,14 @@ class MyPiece < Piece
 	               rotations([[0, 0], [1, 0], [-1, 0], [0, 1], [1, 1]])] # inverted sq with extra 1
 
 	def self.next_piece (board)
-		puts 'In next_piece2.1'
-		MyPiece.new(All_My_Pieces.sample, board)
+		if @cheat
+			puts 'In next_piece2.1.cheat'
+			MyPiece.new(Cheat_Piece.sample, board)
+			@cheat = false
+		else
+			puts 'In next_piece2.1'
+			MyPiece.new(All_My_Pieces.sample, board)
+		end
 	end
 
 end	#End of MyPiece
@@ -89,17 +98,24 @@ class MyBoard < Board
 	  end
   end #End of store_current
 
+  def update_cheat_score
+  	@score = @score - 100
+  	@game.update_score
+  end
+
 end #End of MyBoard
 
 
 
 class MyTetris < Tetris
   # your enhancements here
+  @@cheat_status = false
+  attr_accessor :board
   def key_bindings
   	super
   	@root.bind('u', lambda {@board.rotate_clockwise	#Binds 'u' to rotate 180 deg
   													@board.rotate_clockwise})
-  	@root.bind('c', lambda
+  	@root.bind('c', lambda {self.cheat})
   end
 
   def set_board
@@ -111,9 +127,23 @@ class MyTetris < Tetris
   end
 
   def cheat
+  	puts 'In cheat def'
+  	if @@cheat_status == false
+  		puts 'Passed FALSE'
+  		puts @board.score
+  		if @board.score >= 100
+  			puts 'In >= 100'
+  			@@cheat_status = true	#To make sure it can't be called multiple times per block
+  			puts 'AFTER'
+  			@board.update_cheat_score
+  			#@score = 155
+  			puts 'AFTER2'  			
+  			#update_score
+  			puts 'AFTER3'
 
+  		end
+  	end
   end
-
 end #End of MyTetris
 
 
