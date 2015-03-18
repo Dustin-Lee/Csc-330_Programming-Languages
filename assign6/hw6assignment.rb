@@ -7,7 +7,10 @@
 class MyPiece < Piece
   # The constant All_My_Pieces should be declared here
   # your enhancements here
-  @cheat = false
+#  def move (delta_x, delta_y, delta_rotation)
+#  	moved = true
+#  	potential = @all_rotations[(@rotation_index + delta_rotation) % @all_rotations.size]
+#  	if potential == 0
 
   Cheat_Piece = [[0, 0]]
 
@@ -26,15 +29,14 @@ class MyPiece < Piece
 	               rotations([[0, 0], [1, 0], [-1, 0], [0, 1], [-1, 1]]), # sq with extra 1
 	               rotations([[0, 0], [1, 0], [-1, 0], [0, 1], [1, 1]])] # inverted sq with extra 1
 
+	def self.next_piece_cheat (board)
+		puts 'In next_piece2.1.cheat'
+		MyPiece.new(Cheat_Piece.sample, board)
+	end
+
 	def self.next_piece (board)
-		if @cheat
-			puts 'In next_piece2.1.cheat'
-			MyPiece.new(Cheat_Piece.sample, board)
-			@cheat = false
-		else
-			puts 'In next_piece2.1'
-			MyPiece.new(All_My_Pieces.sample, board)
-		end
+		puts 'In next_piece2.1'
+		MyPiece.new(All_My_Pieces.sample, board)
 	end
 
 end	#End of MyPiece
@@ -49,34 +51,44 @@ class MyBoard < Board
     @score = 0
     @game = game
     @delay = 500
+    @board_cheat_status = false
     puts 'In MyBoard'
   end
   
   def next_piece
-  	@current_block = MyPiece.next_piece(self)
-  	@current_pos = nil
-  	puts 'In next_piece2.2'
+  	if @board_cheat_status
+  		puts 'In next_piece2.cheat'
+  		@current_block = MyPiece.next_piece_cheat(self)
+  		puts 'AFTER In next_piece2.cheat1'
+  		@current_pos = nil
+  		puts 'AFTER In next_piece2.cheat2'
+  		@board_cheat_status = false
+  		puts 'AFTER In next_piece2.cheat3'
+  	else
+  		@current_block = MyPiece.next_piece(self)
+  		@current_pos = nil
+  		puts 'In next_piece2.2'
+  	end
   end
 
   def remove_delay	#To remove repeatable code within store_current
+  	#@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
   	remove_filled
 	  @delay = [@delay - 2, 80].max
 	end
 
-  #modify store_current HERE
   def store_current
   	puts 'In store_current2'
   	locations = @current_block.current_rotation
   	block_cells_size = locations.size
   	puts block_cells_size
-  	#puts locations
-  	#abort("Ending")
   	if locations[1] == nil
   		puts 'In 1'
   		displacement = @current_block.position
   		current = locations[0]
   		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[0]
-  		remove_delay
+  		remove_filled
+  		@delay = [@delay - 2, 80].max
   	elsif locations[3] == nil
   		puts 'In 3'
   		displacement = @current_block.position
@@ -100,6 +112,7 @@ class MyBoard < Board
 
   def update_cheat_score
   	@score = @score - 100
+  	@board_cheat_status = true
   	@game.update_score
   end
 
@@ -134,11 +147,11 @@ class MyTetris < Tetris
   		if @board.score >= 100
   			puts 'In >= 100'
   			@@cheat_status = true	#To make sure it can't be called multiple times per block
-  			puts 'AFTER'
   			@board.update_cheat_score
-  			#@score = 155
+
+  			
   			puts 'AFTER2'  			
-  			#update_score
+  			
   			puts 'AFTER3'
 
   		end
