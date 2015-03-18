@@ -20,9 +20,6 @@ class MyPiece < Piece
       }
     else
 =end
-
-
-
   Cheat_Piece = [[[[0, 0]]]]
 
   All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
@@ -119,12 +116,24 @@ class MyBoard < Board
   end #End of store_current
 
   def update_cheat_score
-  	@score = @score - 100
-  	@board_cheat_status = true
-  	@game.update_score
+    puts 'In Update Cheat'
+    if @board_cheat_status
+      puts 'Already cheated'
+      #next #Have cheated once already
+    else  #Haven't cheated yet
+      puts 'In else cheat'
+      if @score >= 100
+        puts '>=100'
+        @board_cheat_status = true
+        puts @board_cheat_status
+        @score = @score - 100
+        @game.update_score  #Might not need
+        puts 'Updating CHEAT'
+      end
+    end
     #@current_block = MyPiece.next_piece_cheat(self)
     #@current_pos = nil
-  end
+  end #End of update_cheat_score
 
 end #End of MyBoard
 
@@ -132,13 +141,13 @@ end #End of MyBoard
 
 class MyTetris < Tetris
   # your enhancements here
-  @@cheat_status = false
+  #@@cheat_status = false
   attr_accessor :board
   def key_bindings
   	super
   	@root.bind('u', lambda {@board.rotate_clockwise	#Binds 'u' to rotate 180 deg
   													@board.rotate_clockwise})
-  	@root.bind('c', lambda {self.cheat})
+  	@root.bind('c', lambda {self.cheat}) #For cheat piece
   end
 
   def set_board
@@ -151,18 +160,18 @@ class MyTetris < Tetris
 
   def cheat
   	puts 'In cheat def'
-  	if @@cheat_status == false
-  		puts 'Passed FALSE'
-  		puts @board.score
-  		if @board.score >= 100
-  			puts 'In >= 100'
-  			@@cheat_status = true	#To make sure it can't be called multiple times per block
-  			@board.update_cheat_score
+  	#if @@cheat_status == false
+  		#puts 'Passed FALSE'
+  		#puts @board.score
+  		#if @board.score >= 100
+  	#		puts 'In >= 100'
+  	#		@@cheat_status = true	#To make sure it can't be called multiple times per block
+  	@board.update_cheat_score
 
   			
   			puts 'AFTER2'
-  		end
-  	end
+  	#	end
+  	#end
   end
 end #End of MyTetris
 
