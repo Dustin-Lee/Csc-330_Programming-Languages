@@ -72,6 +72,7 @@ class Piece
 
   # class method to choose the next piece
   def self.next_piece (board)
+    puts 'In next_piece1.1' #TEST
     Piece.new(All_Pieces.sample, board)
   end
   
@@ -100,6 +101,7 @@ class Board
     @score = 0
     @game = game
     @delay = 500
+    puts 'In Board'
   end
    
   # both the length and the width of a block, since it is a square
@@ -202,6 +204,7 @@ class Board
   def next_piece
     @current_block = Piece.next_piece(self)
     @current_pos = nil
+    puts 'In next_piece1.2' #TEST
   end
 
   # gets the information from the current piece about where it is and uses this
