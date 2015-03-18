@@ -26,7 +26,7 @@ class MyPiece < Piece
 	def self.next_piece (board)
 		puts 'In next_piece2.1'
 		MyPiece.new(All_My_Pieces.sample, board)
-  end
+	end
 
 end	#End of MyPiece
 
@@ -49,6 +49,11 @@ class MyBoard < Board
   	puts 'In next_piece2.2'
   end
 
+  def remove_delay	#To remove repeatable code within store_current
+  	remove_filled
+	  @delay = [@delay - 2, 80].max
+	end
+
   #modify store_current HERE
   def store_current
   	puts 'In store_current2'
@@ -58,43 +63,29 @@ class MyBoard < Board
   	#puts locations
   	#abort("Ending")
   	if locations[1] == nil
-	  	puts 'In 1'
-	  	displacement = @current_block.position
-	    	current = locations[0]
-	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
-	      @current_pos[0]
-	    remove_filled
-	    @delay = [@delay - 2, 80].max
+  		puts 'In 1'
+  		displacement = @current_block.position
+  		current = locations[0]
+  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[0]
+  		remove_delay
   	elsif locations[3] == nil
-	  	puts 'In 3'
-	  	displacement = @current_block.position
-	    (0..2).each{|index| 
-	      current = locations[index];
-	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
-	      @current_pos[index]
-	    }
-	    remove_filled
-	    @delay = [@delay - 2, 80].max
+  		puts 'In 3'
+  		displacement = @current_block.position
+  		(0..2).each{|index| current = locations[index];
+  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
+  		remove_delay
   	elsif locations[4] == nil
   		puts 'In 4'
   		displacement = @current_block.position
-	    (0..3).each{|index| 
-	      current = locations[index];
-	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
-	      @current_pos[index]
-	    }
-	    remove_filled
-	    @delay = [@delay - 2, 80].max
+  		(0..3).each{|index| current = locations[index];
+  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
+  		remove_delay
 	  else
 	  	puts 'In 5'
 	  	displacement = @current_block.position
-	    (0..4).each{|index| 
-	      current = locations[index];
-	      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
-	      @current_pos[index]
-	    }
-	    remove_filled
-	    @delay = [@delay - 2, 80].max
+	  	(0..4).each{|index| current = locations[index];
+	  	@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
+	  	remove_delay
 	  end
   end #End of store_current
 
@@ -107,7 +98,8 @@ class MyTetris < Tetris
   def key_bindings
   	super
   	@root.bind('u', lambda {@board.rotate_clockwise	#Binds 'u' to rotate 180 deg
-  							@board.rotate_clockwise})
+  													@board.rotate_clockwise})
+  	@root.bind('c', lambda
   end
 
   def set_board
@@ -116,6 +108,10 @@ class MyTetris < Tetris
     @canvas.place(@board.block_size * @board.num_rows + 3,
                   @board.block_size * @board.num_columns + 6, 24, 80)
     @board.draw
+  end
+
+  def cheat
+
   end
 
 end #End of MyTetris
