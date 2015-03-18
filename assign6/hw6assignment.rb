@@ -7,12 +7,23 @@
 class MyPiece < Piece
   # The constant All_My_Pieces should be declared here
   # your enhancements here
-#  def move (delta_x, delta_y, delta_rotation)
-#  	moved = true
-#  	potential = @all_rotations[(@rotation_index + delta_rotation) % @all_rotations.size]
-#  	if potential == 0
+=begin
+  def move (delta_x, delta_y, delta_rotation)
+  	moved = true
+  	potential = @all_rotations[(@rotation_index + delta_rotation) % @all_rotations.size]
+    if potential != 0
+      potential.each{|posns| 
+        if !(@board.empty_at([posns[0] + delta_x + @base_position[0],
+          posns[1] + delta_y + @base_position[1]]));
+          moved = false;
+        end
+      }
+    else
+=end
 
-  Cheat_Piece = [[0, 0]]
+
+
+  Cheat_Piece = [[[[0, 0]]]]
 
   All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
 	               rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
@@ -83,26 +94,23 @@ class MyBoard < Board
   	block_cells_size = locations.size
   	puts block_cells_size
   	if locations[1] == nil
-  		puts 'In 1'
   		displacement = @current_block.position
   		current = locations[0]
   		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[0]
   		remove_filled
   		@delay = [@delay - 2, 80].max
   	elsif locations[3] == nil
-  		puts 'In 3'
   		displacement = @current_block.position
   		(0..2).each{|index| current = locations[index];
   		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
   		remove_delay
   	elsif locations[4] == nil
-  		puts 'In 4'
   		displacement = @current_block.position
   		(0..3).each{|index| current = locations[index];
   		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
   		remove_delay
 	  else
-	  	puts 'In 5'
+      puts 'In 5'
 	  	displacement = @current_block.position
 	  	(0..4).each{|index| current = locations[index];
 	  	@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
@@ -114,6 +122,8 @@ class MyBoard < Board
   	@score = @score - 100
   	@board_cheat_status = true
   	@game.update_score
+    #@current_block = MyPiece.next_piece_cheat(self)
+    #@current_pos = nil
   end
 
 end #End of MyBoard
@@ -150,10 +160,7 @@ class MyTetris < Tetris
   			@board.update_cheat_score
 
   			
-  			puts 'AFTER2'  			
-  			
-  			puts 'AFTER3'
-
+  			puts 'AFTER2'
   		end
   	end
   end

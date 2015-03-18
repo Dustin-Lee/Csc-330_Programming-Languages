@@ -41,16 +41,18 @@ class Piece
   # movement is possible.  If it is, makes this movement and returns true. 
   # Otherwise returns false.
   def move (delta_x, delta_y, delta_rotation)
-    puts '10'
+    #puts '10'
     # Ensures that the rotation will always be a possible formation (as opposed 
     # to nil) by altering the intended rotation so that it stays 
     # within the bounds of the rotation array
     moved = true
-    puts '11'
+    #puts '11'
     potential = @all_rotations[(@rotation_index + delta_rotation) % @all_rotations.size]
-    puts 'potential='
-    puts potential
-    puts '12' #GETS TO HERE
+    #puts 'rotation='
+    #puts @rotation_index
+    #puts 'potential='
+    #puts potential
+    #puts '12' #GETS TO HERE
     # for each individual block in the piece, checks if the intended move
     # will put this block in an occupied space
     potential.each{|posns| 
@@ -59,9 +61,9 @@ class Piece
         moved = false;  
       end
     }
-    puts '13'
+    #puts '13'
     if moved
-      puts '14'
+      #puts '14'
       @base_position[0] += delta_x
       @base_position[1] += delta_y
       @rotation_index = (@rotation_index + delta_rotation) % @all_rotations.size
@@ -145,22 +147,14 @@ class Board
   def run
     puts 'in run1'
     ran = @current_block.drop_by_one
-    puts '1'
     if !ran
-      puts '2'
       store_current
-      puts '3'
       if !game_over?
-        puts '4'
         next_piece
-        puts '5'
       end
     end
-    puts '6'
     @game.update_score
-    puts '7'
     draw
-    puts '8'
   end
 
   # moves the current piece left if possible
