@@ -53,7 +53,7 @@ class MyBoard < Board
 
   def store_current
   	locations = @current_block.current_rotation
-  	block_size_index = locations.size - 1 #Gets current block size
+  	block_size_index = locations.size - 1 #Gets current block index
     displacement = @current_block.position
     (0..block_size_index).each{|index|
       current = locations[index];
