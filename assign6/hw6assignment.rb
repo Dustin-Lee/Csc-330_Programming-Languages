@@ -3,7 +3,6 @@
 
 # This is the only file you turn in, so do not modify the other files as
 # part of your solution.
-
 class MyPiece < Piece
   Cheat_Piece = [[[[0, 0]]]]
 
@@ -47,45 +46,26 @@ class MyBoard < Board
   	if @board_cheat_status
   		@current_block = MyPiece.next_piece_cheat(self)
   		@current_pos = nil
-  		@board_cheat_status = false
+  		@board_cheat_status = false #To reset the cheat flag
   	else
   		@current_block = MyPiece.next_piece(self)
   		@current_pos = nil
   	end
   end
 
-  def remove_delay	#To remove repeatable code within store_current
-  	remove_filled
-	  @delay = [@delay - 2, 80].max
-	end
-
   def store_current
   	locations = @current_block.current_rotation
-  	block_cells_size = locations.size
-  	puts block_cells_size
-  	if locations[1] == nil
-  		displacement = @current_block.position
-  		current = locations[0]
-  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[0]
-  		remove_filled
-  		@delay = [@delay - 2, 80].max
-  	elsif locations[3] == nil
-  		displacement = @current_block.position
-  		(0..2).each{|index| current = locations[index];
-  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
-  		remove_delay
-  	elsif locations[4] == nil
-  		displacement = @current_block.position
-  		(0..3).each{|index| current = locations[index];
-  		@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
-  		remove_delay
-	  else
-	  	displacement = @current_block.position
-	  	(0..4).each{|index| current = locations[index];
-	  	@grid[current[1]+displacement[1]][current[0]+displacement[0]] = @current_pos[index]}
-	  	remove_delay
-	  end
-  end #End of store_current
+  	block_size_index = locations.size - 1 #Gets current block size
+  	puts block_size_index
+    displacement = @current_block.position
+    (0..block_size_index).each{|index|
+      current = locations[index];
+      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+      @current_pos[index]
+    }
+    remove_filled
+    @delay = [@delay - 2, 80].max
+  end
 
   def update_cheat_score
     if @board_cheat_status
@@ -93,21 +73,18 @@ class MyBoard < Board
     else  #Haven't cheated yet
       if @score >= 100
         @board_cheat_status = true
-        puts @board_cheat_status
         @score = @score - 100
-        #@game.update_score
       end
     end
   end #End of update_cheat_score
 end #End of MyBoard
 
 class MyTetris < Tetris
-  attr_accessor :board
   def key_bindings
   	super
   	@root.bind('u', lambda {@board.rotate_clockwise	#Binds 'u' to rotate 180 deg
                             @board.rotate_clockwise})
-  	@root.bind('c', lambda {self.cheat}) #For cheat piece
+  	@root.bind('c', lambda {@board.update_cheat_score}) #For cheat piece
   end
 
   def set_board
@@ -116,10 +93,6 @@ class MyTetris < Tetris
     @canvas.place(@board.block_size * @board.num_rows + 3,
                   @board.block_size * @board.num_columns + 6, 24, 80)
     @board.draw
-  end
-
-  def cheat
-  	@board.update_cheat_score
   end
 end #End of MyTetris
 

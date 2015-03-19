@@ -145,7 +145,6 @@ class Board
   # moves the current piece down by one, if this is not possible stores the
   # current piece and replaces it with a new one.
   def run
-    puts 'in run1'
     ran = @current_block.drop_by_one
     if !ran
       store_current
