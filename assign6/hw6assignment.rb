@@ -22,12 +22,10 @@ class MyPiece < Piece
 	               rotations([[0, 0], [1, 0], [-1, 0], [0, 1], [1, 1]])] # inverted sq with extra 1
 
 	def self.next_piece_cheat (board)
-		puts 'In next_piece2.1.cheat'
 		MyPiece.new(Cheat_Piece.sample, board)
 	end
 
 	def self.next_piece (board)
-		puts 'In next_piece2.1'
 		MyPiece.new(All_My_Pieces.sample, board)
 	end
 end	#End of MyPiece
@@ -56,7 +54,6 @@ class MyBoard < Board
   def store_current
   	locations = @current_block.current_rotation
   	block_size_index = locations.size - 1 #Gets current block size
-  	puts block_size_index
     displacement = @current_block.position
     (0..block_size_index).each{|index|
       current = locations[index];
