@@ -105,7 +105,7 @@ class MyPieceChallenge < MyPiece
 end
 
 class MyBoardChallenge < MyBoard
-  def drop_by_two
+  def drop_by_two #Uses the 'i' key to drop the current block by two
     drops = 2
     if @game.is_running?
       for i in 0..2
