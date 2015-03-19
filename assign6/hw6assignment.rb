@@ -97,3 +97,35 @@ class MyTetris < Tetris
 end #End of MyTetris
 
 
+
+
+#Challenge Problem
+class MyPieceChallenge < MyPiece
+  #
+end
+
+class MyBoardChallenge < MyBoard
+  def drop_by_two
+    drops = 2
+    if @game.is_running?
+      for i in 0..2
+        self.run
+      end
+    end
+  end
+end
+
+class MyTetrisChallenge < MyTetris
+  def set_board
+    @canvas = TetrisCanvas.new
+    @board = MyBoardChallenge.new(self)
+    @canvas.place(@board.block_size * @board.num_rows + 3,
+                  @board.block_size * @board.num_columns + 6, 24, 80)
+    @board.draw
+  end
+
+  def key_bindings
+    super
+    @root.bind('i', lambda {@board.drop_by_two})
+  end
+end

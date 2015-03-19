@@ -41,18 +41,11 @@ class Piece
   # movement is possible.  If it is, makes this movement and returns true. 
   # Otherwise returns false.
   def move (delta_x, delta_y, delta_rotation)
-    #puts '10'
     # Ensures that the rotation will always be a possible formation (as opposed 
     # to nil) by altering the intended rotation so that it stays 
     # within the bounds of the rotation array
     moved = true
-    #puts '11'
     potential = @all_rotations[(@rotation_index + delta_rotation) % @all_rotations.size]
-    #puts 'rotation='
-    #puts @rotation_index
-    #puts 'potential='
-    #puts potential
-    #puts '12' #GETS TO HERE
     # for each individual block in the piece, checks if the intended move
     # will put this block in an occupied space
     potential.each{|posns| 
@@ -61,9 +54,7 @@ class Piece
         moved = false;  
       end
     }
-    #puts '13'
     if moved
-      #puts '14'
       @base_position[0] += delta_x
       @base_position[1] += delta_y
       @rotation_index = (@rotation_index + delta_rotation) % @all_rotations.size
@@ -219,7 +210,7 @@ class Board
   # gets the information from the current piece about where it is and uses this
   # to store the piece on the board itself.  Then calls remove_filled.
   def store_current
-    puts 'In store_current1'
+    puts 'In store_current1'  #TEST
     locations = @current_block.current_rotation
     displacement = @current_block.position
     (0..3).each{|index| 
