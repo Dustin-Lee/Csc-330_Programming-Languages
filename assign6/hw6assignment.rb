@@ -103,6 +103,7 @@ end
 
 class MyBoardChallenge < MyBoard
   def drop_by_two #Uses the 'i' key to drop the current block by two
+    puts @delay #TEST
     drops = 2
     if @game.is_running?
       for i in 0..2
@@ -110,7 +111,14 @@ class MyBoardChallenge < MyBoard
       end
     end
   end
-end
+
+  def delay_incr  #Added functionality for fun
+    if @score >= 100
+      @score -= 100
+      @delay += 10
+    end
+  end
+end #End of MyBoardChallenge
 
 class MyTetrisChallenge < MyTetris
   def set_board
@@ -124,5 +132,6 @@ class MyTetrisChallenge < MyTetris
   def key_bindings
     super
     @root.bind('i', lambda {@board.drop_by_two})
+    @root.bind('k', lambda {@board.delay_incr})
   end
 end
