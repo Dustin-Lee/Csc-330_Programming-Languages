@@ -39,7 +39,7 @@ class MyBoard < Board
     @delay = 500
     @board_cheat_status = false
   end
-  
+
   def next_piece
   	if @board_cheat_status
   		@current_block = MyPiece.next_piece_cheat(self)
@@ -57,7 +57,7 @@ class MyBoard < Board
     displacement = @current_block.position
     (0..block_size_index).each{|index|
       current = locations[index];
-      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+      @grid[current[1]+displacement[1]][current[0]+displacement[0]] =
       @current_pos[index]
     }
     remove_filled
@@ -95,10 +95,9 @@ end #End of MyTetris
 
 
 
-
 #Challenge Problem
 class MyPieceChallenge < MyPiece
-  #
+  #For future implementation for fun
 end
 
 class MyBoardChallenge < MyBoard
