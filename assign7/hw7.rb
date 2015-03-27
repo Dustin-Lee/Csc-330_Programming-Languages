@@ -1,3 +1,4 @@
+# Dustin Chang
 # a little language for 2D geometry objects
 
 # each subclass of GeometryExpression, including subclasses of GeometryValue,
@@ -114,6 +115,10 @@ class Point < GeometryValue
     @x = x
     @y = y
   end
+
+  def shift(dx,dy)
+    Point.new(@x+dx,@y+dy)
+  end
 end
 
 class Line < GeometryValue
@@ -124,6 +129,10 @@ class Line < GeometryValue
     @m = m
     @b = b
   end
+
+  def shift(dx,dy)
+    Line.new(@m,@b+dy-(@m*dx))
+  end
 end
 
 class VerticalLine < GeometryValue
@@ -132,6 +141,10 @@ class VerticalLine < GeometryValue
   attr_reader :x
   def initialize x
     @x = x
+  end
+
+  def shift(dx,dy)
+    VerticalLine.new(@x+dx)
   end
 end
 
@@ -147,6 +160,10 @@ class LineSegment < GeometryValue
     @y1 = y1
     @x2 = x2
     @y2 = y2
+  end
+
+  def shift(dx,dy)
+    LineSegment.new(@x1+dx,@y1+dy,@x2+dx,@y2+dy)
   end
 end
 
@@ -165,16 +182,28 @@ class Let < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
   # Note: Look at Var to guide how you implement Let
+  def preprocess_prog
+    self
+  end
+
   def initialize(s,e1,e2)
     @s = s
     @e1 = e1
     @e2 = e2
+  end
+  def eval_prog env
+    #implement    Let(s,e1,e2) => eval_prog (e2, ((s, eval_prog(e1,env)) :: env))
+    @e2.eval_prog( env.concat[[ @s, @e1.preprocess_prog.eval_prog(env)]])
   end
 end
 
 class Var < GeometryExpression
   # *add* methods to this class -- do *not* change given code and do not
   # override any methods
+  def preprocess_prog
+    self
+  end
+
   def initialize s
     @s = s
   end
@@ -192,5 +221,14 @@ class Shift < GeometryExpression
     @dx = dx
     @dy = dy
     @e = e
+  end
+
+  def preprocess_prog
+    Shift.new(@dx,@dy,@e.preprocess_prog)
+  end
+
+  def eval_prog env
+    eval = @e.eval_prog(eng)
+    eval.shift(@dx,@dy)
   end
 end
