@@ -210,11 +210,7 @@ fun eval_prog (e,env) =
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
 fun preprocess_prog (g_exp) =
     case g_exp of
-(*	NoPoints => g_exp
-      | Point _ => g_exp
-      | Line _ => g_exp
-      | VerticalLine _ => g_exp
-      |*) LineSegment (x1,y1,x2,y2) => if real_close(x1,x2)
+	LineSegment (x1,y1,x2,y2) => if real_close(x1,x2)
 				       then
 					   if real_close(y1,y2)
 					   then Point (x1,y1)
@@ -226,6 +222,4 @@ fun preprocess_prog (g_exp) =
 					   if x1<x2
 					   then g_exp
 					   else LineSegment(x2,y2,x1,y1)
-(*      | Var s => g_exp
-      | Shift(deltaX,deltaY,g_exp) => Shift(deltaX,deltaY,preprocess_prog(g_exp))*)
       | _ => g_exp
