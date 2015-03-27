@@ -313,6 +313,7 @@ tests[51] = equal(Intersect.new(Point.new(ONE, ONE), Point.new(1.0999, ONE)).pre
 tests[52] = equal(Intersect.new(Point.new(ONE, FOUR), Line.new(ONE, THREE)).preprocess_prog.eval_prog([]), Point.new(ONE, FOUR))
 tests[53] = equal(Intersect.new(Point.new(TWO, FOUR), Line.new(ONE, THREE)).preprocess_prog.eval_prog([]), NoPoints.new)
 tests[54] = equal(Intersect.new(Point.new(TWO, FOUR), VerticalLine.new(TWO)).preprocess_prog.eval_prog([]), Point.new(TWO, FOUR))
+=begin
 tests[55] = equal(Intersect.new(Point.new(FOUR, FOUR), VerticalLine.new(TWO)).preprocess_prog.eval_prog([]), NoPoints.new)
 tests[56] = equal(Intersect.new(Point.new(TWO, TWO), LineSegment.new(ZERO, ZERO, THREE, THREE)).preprocess_prog.eval_prog([]), Point.new(TWO, TWO))
 tests[57] = equal(Intersect.new(Point.new(FOUR, FOUR), LineSegment.new(ZERO, ZERO, THREE, THREE)).preprocess_prog.eval_prog([]), NoPoints.new)
@@ -324,7 +325,7 @@ tests[91] = Intersect.new(Point.new(FIVE, FOUR), VerticalLine.new(FOUR)).eval_pr
 tests[92] = Intersect.new(Point.new(FOUR, FOUR), VerticalLine.new(FOUR)).eval_prog([]) == Point.new(FOUR, FOUR)
 tests[93] = Intersect.new(Point.new(TWO, TWO), LineSegment.new(ONE, ONE, FOUR, FOUR)).eval_prog([]) == Point.new(TWO, TWO)
 tests[94] = Intersect.new(Point.new(4.1, 4.1), LineSegment.new(ONE, ONE, FOUR, FOUR)).eval_prog([]).class == NoPoints.new.class
-=begin
+
 # Line
 tests[58] = equal(Intersect.new(Line.new(ONE, TWO), Line.new(TWO, ZERO)).preprocess_prog.eval_prog([]), Point.new(TWO, FOUR))
 tests[59] = equal(Intersect.new(Line.new(ONE, TWO), Line.new(ONE, THREE)).preprocess_prog.eval_prog([]), NoPoints.new)
