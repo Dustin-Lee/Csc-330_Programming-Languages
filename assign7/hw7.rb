@@ -22,7 +22,6 @@
 
 # Note: For eval_prog, represent environments as arrays of 2-element arrays
 # as described in the assignment
-
 class GeometryExpression  
   # do *not* change this class definition
   Epsilon = 0.00001
@@ -31,6 +30,13 @@ end
 class GeometryValue 
   # do *not* change methods in this class definition
   # you can add methods if you wish
+
+  def eval_prog env #ADDED
+    self # all values evaluate to self
+  end
+  def preprocess_prog
+    self # by default it is simply a self
+  end
 
   private
   # some helper methods that may be generally useful
@@ -115,13 +121,13 @@ class Point < GeometryValue
     @y = y
   end
 
-  def eval_prog env
-    self
-  end
+  #def eval_prog env #NOT NEEDED?
+  #  self
+  #end
 
-  def preprocess_prog
-    self
-  end
+  #def preprocess_prog #NOT NEEDED?
+  #  self
+  #end
 
   def shift(dx,dy)
     Point.new(@x+dx,@y+dy)
@@ -133,7 +139,7 @@ class Point < GeometryValue
 
   def intersectPoint p
     if real_close_point(@x,@y,p.x,p.y)
-      self
+      p #self, why change to p?
     else
       NoPoints.new
     end
@@ -148,7 +154,7 @@ class Point < GeometryValue
   end
 
   def intersectVerticalLine vline
-    if real_close(@x1, vline.x)
+    if real_close(x, vline.x) #Changed (@x1,vline.x) to (x,line.x)
       self
     else
       NoPoints.new
@@ -156,12 +162,13 @@ class Point < GeometryValue
   end
 
   def inbetween v, end1, end2
-    (end1-GeometryExpression::Epsilon <= v and v <= end2+GeometryExpression::Epsilon) or (end2-GeometryExpression::Epsilon<=v and v<= end1+GeometryExpression::Epsilon)
+    (end1-GeometryExpression::Epsilon <= v and v <= end2+GeometryExpression::Epsilon) or 
+      (end2-GeometryExpression::Epsilon<=v and v<= end1+GeometryExpression::Epsilon)
   end
 
   def intersectWithSegmentAsLineResult line_seg
     if inbetween(@x, line_seg.x1, line_seg.x2) and inbetween(@y, line_seg.y1, line_seg.y2)
-      Point(@x,@y)
+      self #Point(@x,@y), why change to self?
     else
       NoPoints.new
     end
@@ -177,13 +184,13 @@ class Line < GeometryValue
     @b = b
   end
 
-  def eval_prog env
-    self
-  end
+  #def eval_prog env #NOT NEEDED
+  #  self
+  #end
 
-  def preprocess_prog
-    self
-  end
+  #def preprocess_prog #NOT NEEDED
+  #  self
+  #end
 
   def shift(dx,dy)
     Line.new(@m,@b+dy-(@m*dx))
@@ -200,7 +207,7 @@ class Line < GeometryValue
   def intersectLine line
     if real_close(@m, line.m)
       if(real_close(@b, line.b))
-        self
+        line #self, why change to line?
       else
         NoPoints.new
       end
@@ -228,13 +235,13 @@ class VerticalLine < GeometryValue
     @x = x
   end
 
-  def eval_prog env
-    self
-  end
+  #def eval_prog env #NOT NEEDED
+  #  self
+  #end
 
-  def preprocess_prog
-    self
-  end
+  #def preprocess_prog #NOT NEEDED
+  #  self
+  #end
 
   def shift(dx,dy)
     VerticalLine.new(@x+dx)
@@ -254,7 +261,7 @@ class VerticalLine < GeometryValue
 
   def intersectVerticalLine vline
     if real_close(@x, vline.x)
-      self
+      vline #self, why changed to vline
     else
       NoPoints.new
     end
@@ -263,7 +270,6 @@ class VerticalLine < GeometryValue
   def intersectWithSegmentAsLineResult line_seg
     line_seg
   end
-
 end
 
 class LineSegment < GeometryValue
@@ -280,9 +286,9 @@ class LineSegment < GeometryValue
     @y2 = y2
   end
 
-  def eval_prog env
-    self
-  end
+  #def eval_prog env #NOT NEEDED
+  #  self
+  #end
 
   def preprocess_prog
     if real_close_point(@x1,@y1,@x2,@y2)
@@ -302,6 +308,66 @@ class LineSegment < GeometryValue
     other.intersectLineSegment self
   end
 
+  def intersectPoint pt
+    pt.intersectLineSegment self
+  end
+  def intersectLine line
+    line.intersectLineSegment self
+  end
+  def intersectVerticalLine vline
+    vline.intersectLineSegment self
+  end
+  def vertical_line?
+    x1 == x2
+  end
+
+  def doVerticalLine(below, above)
+    puts "vertical line******" unless real_close(below.x1, above.x1) and 
+      real_close(below.x1, below.x2) and
+      real_close(above.x1, above.x2)
+    
+    if real_close(below.y2, above.y1) # they touch
+      Point.new(below.x1, below.y2)
+    elsif below.y2 < above.y1 # below is truly below
+      NoPoints.new
+    elsif below.y2 > above.y2 #below includes above
+      above
+    else # they partially overlap
+      LineSegment.new(below.x1, above.y1,below.x1, below.y2)
+    end
+  end
+  def doNonVerticalLine (left, right)
+    puts "not ver line******" unless left.x1 <= right.x1
+
+    # left is a segment to the left of right
+    if real_close(left.x2, right.x1)
+      Point.new(left.x2, left.y2)
+    elsif left.x2 < right.x1
+      NoPoints.new
+    elsif left.x2 > right.x2 # left includes right
+      right
+    else # overlap
+      LineSegment.new(right.x1, right.y1, left.x2, left.y2)
+    end
+  end
+  def intersectWithSegmentAsLineResult seg
+    #puts ">>>>>"
+    if vertical_line? # the segments are on a vertical line 
+      if y1 < seg.y1
+        doVerticalLine(self, seg)
+      else
+        doVerticalLine(seg, self)
+      end
+    else # not a vertical line
+      if x1 < seg.x1
+        doNonVerticalLine(self, seg)
+      else
+        doNonVerticalLine(seg, self)
+      end
+    end
+  end
+  #What I had below, replaced by above
+=begin  
   def intersectWithSegmentAsLineResult line_seg
     line_seg2 = self
     if real_close(line_seg.x1, line_seg.x2)
@@ -338,6 +404,7 @@ class LineSegment < GeometryValue
       end
     end
   end
+=end
 
 end
 
